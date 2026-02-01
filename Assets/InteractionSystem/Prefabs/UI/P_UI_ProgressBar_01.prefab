@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 1171985331686681530}
   - component: {fileID: 714290054041234827}
   - component: {fileID: 298749322764738344}
+  - component: {fileID: 8954654182821026132}
   m_Layer: 5
-  m_Name: P_ProgressBar_01
+  m_Name: P_UI_ProgressBar_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,6 +77,24 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &8954654182821026132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 87022469157760565}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3de189661e41437f84fb061bd79fb13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fillImage: {fileID: 2035937436457293910}
+  maxValue: 100
+  currentValue: 0
+  addedValue: 20
+  smooth: 1
+  lerpSpeed: 10
 --- !u!1 &6355403871521117214
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,7 +107,7 @@ GameObject:
   - component: {fileID: 6144258013375900878}
   - component: {fileID: 2035937436457293910}
   m_Layer: 5
-  m_Name: ProgressLine
+  m_Name: img_ProgressFill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

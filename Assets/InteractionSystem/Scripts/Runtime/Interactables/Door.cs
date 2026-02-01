@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using InteractionSystem.Runtime.Core;
 using System.Collections;
+using InteractionSystem.Runtime.Player;
 
 namespace InteractionSystem.Runtime.Interactables
 {
@@ -112,7 +113,39 @@ namespace InteractionSystem.Runtime.Interactables
         #endregion
 
         #region Methods
+        /// <summary>
+        /// Eylem tetiklendiğinde çağrılır.
+        /// </summary>
+        /// <param name="interactor">Eylemi tetikleyen nesne.</param>
+        public override void OnInteract(GameObject interactor)
+        {
+            if (m_IsLocked)
+            {
+                // Envanter kontrolü yap
+                if (interactor != null && interactor.TryGetComponent<PlayerInventory>(out var inventory))
+                {
+                    if (inventory.HasKey(m_RequiredKeyId))
+                    {
+                        Unlock();
+                        inventory.UseKey(m_RequiredKeyId);
+                    }
+                    else
+                    {
+                        Debug.Log($"Door is locked! Requires key: {m_RequiredKeyId}");
+                        return;
+                    }
+                }
+                else
+                {
+                    Debug.Log("Door is locked!");
+                    return;
+                }
+            }
 
+            ToggleDoor();
+            base.OnInteract(interactor);
+        }
+        
         /// <summary>
         /// Kapıyı açar/kapatır.
         /// </summary>

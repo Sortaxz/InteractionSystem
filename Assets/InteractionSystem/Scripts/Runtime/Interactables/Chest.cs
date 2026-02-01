@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using InteractionSystem.Runtime.Core;
 using InteractionSystem.Runtime.Core.ScriptableObjects;
+using InteractionSystem.Runtime.Player;
 
 namespace InteractionSystem.Runtime.Interactables
 {
@@ -86,6 +87,19 @@ namespace InteractionSystem.Runtime.Interactables
         public void Open(GameObject interactor)
         {
             m_IsOpened = true;
+            SetCanInteract(false);
+
+            OnChestOpened?.Invoke();
+
+            // İçindeki item'ı ver
+            if (m_ContainedItem != null && interactor != null)
+            {
+                if (interactor.TryGetComponent<PlayerInventory>(out var inventory))
+                {
+                    inventory.AddItem(m_ContainedItem);
+                    OnItemCollected?.Invoke(m_ContainedItem);
+                }
+            }
             m_Animator.SetBool("isOpen", m_IsOpened);
             m_Animator.SetBool("isClose", !m_IsOpened);
         }
