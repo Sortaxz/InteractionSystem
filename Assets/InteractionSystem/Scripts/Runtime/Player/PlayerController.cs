@@ -16,10 +16,22 @@ namespace InteractionSystem.Runtime.Player
 
         private CharacterController m_CharacterController;
         private float m_RotationX;
+        private bool m_IsStop;
+        internal bool IsStop
+        {
+            get { return m_IsStop; }
+            set { m_IsStop = value; }
+        }
 
         #endregion
 
         #region Unity Methods
+
+        void OnEnable()
+        {
+            GameManager.Instance.OnGameStop += HandleGamePause;
+            GameManager.Instance.OnGameResume += HandleGameResume;
+        }
 
         private void Awake()
         {
@@ -30,8 +42,16 @@ namespace InteractionSystem.Runtime.Player
 
         private void Update()
         {
+            if(m_IsStop)
+                return;
+
             HandleMovement();
             HandleLook();
+        }
+
+        void OnDisable()
+        {
+            
         }
 
         #endregion
@@ -56,6 +76,15 @@ namespace InteractionSystem.Runtime.Player
             m_RotationX = Mathf.Clamp(m_RotationX, -90f, 90f);
 
             transform.Rotate(Vector3.up * mouseX);
+        }
+
+        private void HandleGamePause()
+        {
+            m_IsStop = true;
+        }
+        private void HandleGameResume()
+        {
+            m_IsStop = false;
         }
 
         #endregion

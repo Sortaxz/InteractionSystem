@@ -19,7 +19,7 @@ namespace InteractionSystem.Runtime.UI
         [SerializeField] private Transform m_ItemContainer;
         [SerializeField] private GameObject m_ItemPrefab;
         [SerializeField] private TextMeshProUGUI m_ItemCountText;
-
+        [SerializeField] private Button m_CloseButton;
         private List<GameObject> m_SpawnedItems = new List<GameObject>();
 
         #endregion
@@ -32,6 +32,8 @@ namespace InteractionSystem.Runtime.UI
             {
                 m_Inventory.OnInventoryChanged += RefreshUI;
             }
+
+            GameManager.Instance.SendGameStop();
         }
 
         private void OnDisable()
@@ -40,6 +42,7 @@ namespace InteractionSystem.Runtime.UI
             {
                 m_Inventory.OnInventoryChanged -= RefreshUI;
             }
+            GameManager.Instance.SendGameResume();
         }
 
         private void Start()
@@ -109,6 +112,12 @@ namespace InteractionSystem.Runtime.UI
             {
                 m_ItemCountText.text = $"Items: {m_Inventory.ItemCount}";
             }
+        }
+
+        public void CloseInventory()
+        {
+            GameManager.Instance.SendGameResume();
+            gameObject.SetActive(false);
         }
 
         #endregion
