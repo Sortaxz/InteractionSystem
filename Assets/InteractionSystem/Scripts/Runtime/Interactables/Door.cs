@@ -1,6 +1,7 @@
 using System;
 using UnityEngine;
 using InteractionSystem.Runtime.Core;
+using System.Collections;
 
 namespace InteractionSystem.Runtime.Interactables
 {
@@ -9,7 +10,10 @@ namespace InteractionSystem.Runtime.Interactables
     /// </summary>
     public class Door : BaseInteractable
     {
-        #region Fields
+        #region Field
+
+        [Header("Door Component")]
+        [SerializeField] private Animator m_Animator;
 
         [Header("Door Settings")]
         [SerializeField] private bool m_IsLocked;
@@ -87,11 +91,22 @@ namespace InteractionSystem.Runtime.Interactables
             {
                 m_DoorPivot = transform;
             }
+
+            if(m_Animator == null)
+                m_Animator = GetComponent<Animator>();
         }
 
-        private void Update()
+        void Update()
         {
-            UpdateDoorRotation();
+            if(Input.GetKeyDown(KeyCode.W))
+            {
+                Open();
+            }
+
+            if(Input.GetKeyDown(KeyCode.S))
+            {
+                Close();
+            }
         }
 
         #endregion
@@ -125,6 +140,8 @@ namespace InteractionSystem.Runtime.Interactables
             {
                 ToggleDoor();
             }
+            
+            OpenAnimation();
         }
 
         /// <summary>
@@ -136,6 +153,7 @@ namespace InteractionSystem.Runtime.Interactables
             {
                 ToggleDoor();
             }
+            CloseAnimation();
         }
 
         /// <summary>
@@ -158,13 +176,16 @@ namespace InteractionSystem.Runtime.Interactables
             m_RequiredKeyId = keyId;
         }
 
-        private void UpdateDoorRotation()
+        private void OpenAnimation()
         {
-            if (Mathf.Abs(m_CurrentAngle - m_TargetAngle) > 0.1f)
-            {
-                m_CurrentAngle = Mathf.Lerp(m_CurrentAngle, m_TargetAngle, Time.deltaTime * m_OpenSpeed);
-                m_DoorPivot.localRotation = Quaternion.Euler(0f, m_CurrentAngle, 0f);
-            }
+            m_Animator.SetBool("isOpen", true);
+            m_Animator.SetBool("isClose", false);
+        }
+        
+        private void CloseAnimation()
+        {
+            m_Animator.SetBool("isOpen", false);
+            m_Animator.SetBool("isClose", true);
         }
 
         #endregion

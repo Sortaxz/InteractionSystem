@@ -11,6 +11,8 @@ namespace InteractionSystem.Runtime.Interactables
     public class Chest : BaseInteractable
     {
         #region Fields
+        [Header("Chest Component")]
+        [SerializeField] private Animator m_Animator;
 
         [Header("Chest Settings")]
         [SerializeField] private ItemData m_ContainedItem;
@@ -19,9 +21,6 @@ namespace InteractionSystem.Runtime.Interactables
         [SerializeField] private float m_OpenSpeed = 2f;
 
         private bool m_IsOpened;
-        private float m_CurrentAngle;
-        private float m_TargetAngle;
-
         private const string k_ClosedPrompt = "Hold E to Open";
         private const string k_OpenedPrompt = "Chest is Empty";
 
@@ -58,11 +57,11 @@ namespace InteractionSystem.Runtime.Interactables
 
         #region Unity Methods
 
-        private void Update()
+        void Awake()
         {
-            UpdateLidRotation();
+            if(m_Animator == null)
+                m_Animator = GetComponent<Animator>();
         }
-
         #endregion
 
         #region Methods
@@ -86,23 +85,19 @@ namespace InteractionSystem.Runtime.Interactables
         /// <param name="interactor">Etkileşimi yapan GameObject.</param>
         public void Open(GameObject interactor)
         {
-            
+            m_IsOpened = true;
+            m_Animator.SetBool("isOpen", m_IsOpened);
+            m_Animator.SetBool("isClose", !m_IsOpened);
         }
 
-        private void UpdateLidRotation()
+        public void Close()
         {
-            if (m_LidTransform == null)
-            {
-                return;
-            }
-
-            if (Mathf.Abs(m_CurrentAngle - m_TargetAngle) > 0.1f)
-            {
-                m_CurrentAngle = Mathf.Lerp(m_CurrentAngle, m_TargetAngle, Time.deltaTime * m_OpenSpeed);
-                m_LidTransform.localRotation = Quaternion.Euler(m_CurrentAngle, 0f, 0f);
-            }
+            m_IsOpened = false;
+            m_Animator.SetBool("isClose", !m_IsOpened);
+            m_Animator.SetBool("isOpen", m_IsOpened);
         }
 
+       
         #endregion
     }
 }
