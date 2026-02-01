@@ -47,6 +47,7 @@ namespace InteractionSystem.Runtime.UI
         private void Start()
         {
             HidePrompt();
+            m_ProgressBarContainer.SetActive(true);
         }
 
         private void Update()

@@ -1,3 +1,4 @@
+using InteractionSystem.Scripts.Manager;
 using UnityEngine;
 
 namespace InteractionSystem.Runtime.Player
@@ -75,6 +76,7 @@ namespace InteractionSystem.Runtime.Player
             m_RotationX -= mouseY;
             m_RotationX = Mathf.Clamp(m_RotationX, -90f, 90f);
 
+            Camera.main.transform.localRotation = Quaternion.Euler(m_RotationX, 0f, 0f);
             transform.Rotate(Vector3.up * mouseX);
         }
 

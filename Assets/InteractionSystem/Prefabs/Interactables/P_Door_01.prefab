@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6282251160989122312}
   - component: {fileID: 5464515467110253582}
   - component: {fileID: 6443902157147258884}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: P_Door (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   - component: {fileID: 7691394099725483058}
   - component: {fileID: 5086973239077679850}
   - component: {fileID: 3408868751415506076}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: P_Door_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -232,12 +232,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_InteractionPrompt: Press E to Interact
-  m_InteractionType: 0
+  m_InteractionType: 1
   m_HoldDuration: 2
+  m_Animator: {fileID: 0}
   m_IsLocked: 0
   m_RequiredKeyId: 
+  m_OpenAngle: 90
   m_OpenSpeed: 2
-  m_DoorPivot: {fileID: 0}
+  m_DoorPivot: {fileID: 5064678455124316678}
 --- !u!95 &3408868751415506076
 Animator:
   serializedVersion: 7
@@ -248,7 +250,7 @@ Animator:
   m_GameObject: {fileID: 9126430354875549817}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0c5073e14cd0c49a8aea165bddfaf931, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

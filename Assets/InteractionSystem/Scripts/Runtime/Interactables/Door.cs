@@ -86,6 +86,12 @@ namespace InteractionSystem.Runtime.Interactables
 
         #region Unity Methods
 
+        void OnEnable()
+        {
+            OnDoorOpened += Open;
+            OnDoorClosed += Close;
+        }
+
         private void Awake()
         {
             if (m_DoorPivot == null)
@@ -97,17 +103,10 @@ namespace InteractionSystem.Runtime.Interactables
                 m_Animator = GetComponent<Animator>();
         }
 
-        void Update()
+        void OnDisable()
         {
-            if(Input.GetKeyDown(KeyCode.W))
-            {
-                Open();
-            }
-
-            if(Input.GetKeyDown(KeyCode.S))
-            {
-                Close();
-            }
+            OnDoorOpened -= Open;
+            OnDoorClosed -= Close;
         }
 
         #endregion

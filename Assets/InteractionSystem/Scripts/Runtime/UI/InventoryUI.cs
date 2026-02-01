@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using TMPro;
 using InteractionSystem.Runtime.Player;
 using InteractionSystem.Runtime.Core.ScriptableObjects;
+using InteractionSystem.Scripts.Manager;
 
 namespace InteractionSystem.Runtime.UI
 {
